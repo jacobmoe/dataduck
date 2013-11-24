@@ -1,6 +1,6 @@
 from twitter import *
 
-twitter = Twitter(
+twitter_stream = TwitterStream(
     auth=OAuth(
         OAUTH_TOKEN, 
         OAUTH_SECRET,
