@@ -24,13 +24,7 @@ class Collector(object):
         iterator = twitter_stream.statuses.filter(track = self.track)
         for raw_tweet in iterator:
 
-            print("-----------------------------------------")
-            print(raw_tweet)
-
             if (raw_tweet['coordinates'] is not None):
-                print("coordinates TYPE ~~~~~~~~~~> ")
-                print(type(raw_tweet['coordinates']))
-                print(raw_tweet['coordinates'])
                 latitude = raw_tweet['coordinates']['coordinates'][0]
                 longitude = raw_tweet['coordinates']['coordinates'][1]
             else:
