@@ -3,10 +3,10 @@ from tweet_collector.setup.twitter import *
 from datetime import *
 
 class Tweet(models.Model):
-    message = models.CharField(max_length = 160, db_index = True, null = True)
+    message = models.TextField(max_length = 160, db_index = True, null = True)
     latitude = models.FloatField(db_index = True, null = True)
     longitude = models.FloatField(db_index = True, null = True) 
-    user_location = models.CharField(max_length = 100, db_index = True, null = True)
+    user_location = models.TextField(max_length = 100, db_index = True, null = True)
     user_language = models.CharField(max_length = 5, db_index = True, null = True)
     tweet_location = models.TextField(max_length = 200, db_index = True, null = True)
     date_tweeted = models.DateTimeField('date tweeted', db_index = True, null = True)
