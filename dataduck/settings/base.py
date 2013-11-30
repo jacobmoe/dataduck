@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -20,13 +21,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    # 'django.contrib.admin',
-    # 'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tweet_collector'
+    'tweet_collector',
+    'emberduck',
+    'users',
+    'pipeline',
+    'tastypie'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,8 +61,30 @@ USE_L10N = True
 USE_TZ = True
 
 
+TEMPLATE_DIRS = {
+    os.path.join(PROJECT_ROOT, 'templates'),
+    os.path.join(PROJECT_ROOT, 'users/templates')
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
+PIPELINE_CSS = {
+    'application': {
+        'source_filenames': (
+          'css/emberduck.css',
+        ),
+        'output_filename': 'css/application.css',
+    },
+}
+
+PIPELINE_JS = {
+   'application': {
+        'source_filenames': (
+            'js/templates/**/*.js'
+        ),
+        'output_filename': 'js/application.js'
+   }
+}

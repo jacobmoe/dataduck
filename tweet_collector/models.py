@@ -1,6 +1,7 @@
 from django.db import models
 from tweet_collector.setup.twitter import *
 from datetime import *
+from django.utils.timezone import utc
 
 class CollectionPeriod(models.Model):
     start_date = models.DateTimeField('start date', db_index = True, null = True)
@@ -22,46 +23,41 @@ class Tweet(models.Model):
 
 class Collector(object):
     
-    def __init__(self, track, start_date, stop_date):
+    def __init__(self, track, collection_period):
         self.track = track
-        self.start_date = start_date
-        self.stop_date = stop_date
+        self.collection_period = collection_period
 
     def start(self):
-
-        collection_period = CollectionPeriod(
-            start_date = self.start_date,
-            stop_date = self.stop_date,
-            search_terms = self.track
-        )
-
-        collection_period.save()
 
         iterator = twitter_stream.statuses.filter(track = self.track)
 
         for raw_tweet in iterator:
-            if (raw_tweet['coordinates'] is not None):
-                latitude = raw_tweet['coordinates']['coordinates'][0]
-                longitude = raw_tweet['coordinates']['coordinates'][1]
+            now = datetime.now().replace(tzinfo=utc)
+            if (now < collection_period.stop_period):
+                if (raw_tweet['coordinates'] is not None):
+                    latitude = raw_tweet['coordinates']['coordinates'][0]
+                    longitude = raw_tweet['coordinates']['coordinates'][1]
+                else:
+                    latitude = None
+                    longitude = None
+
+                date = datetime.strptime(
+                    raw_tweet['created_at'], 
+                    '%a %b %d %H:%M:%S +0000 %Y'
+                ).replace(tzinfo=utc)
+
+                tweet = Tweet(
+                    message = raw_tweet['text'],
+                    tweet_location = raw_tweet['place'],
+                    latitude = latitude,
+                    longitude = longitude,
+                    user_location = raw_tweet['user']['location'],
+                    user_language = raw_tweet['user']['lang'],
+                    date_tweeted = date,
+                    collection_period_id = self.collection_period.id
+                )
+                tweet.save()
+                print("Saved tweet ====> %(tweet)s" % locals())
             else:
-                latitude = None
-                longitude = None
-
-            date = datetime.strptime(
-                raw_tweet['created_at'], 
-                '%a %b %d %H:%M:%S +0000 %Y'
-            )
-
-            tweet = Tweet(
-                message = raw_tweet['text'],
-                tweet_location = raw_tweet['place'],
-                latitude = latitude,
-                longitude = longitude,
-                user_location = raw_tweet['user']['location'],
-                user_language = raw_tweet['user']['lang'],
-                date_tweeted = date,
-                collection_period_id = collection_period.id
-            )
-            tweet.save()
-            print("Saved tweet ==========> %(tweet)s" % locals())
-
+                print("Collection period finished at %(now)s" % locals())
+                break

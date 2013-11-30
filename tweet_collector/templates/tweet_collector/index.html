@@ -1,0 +1,9 @@
+{% if tweet_list %}
+    <ul>
+    {% for tweet in tweet_list %}
+        <li><a href="/tweets/{{ tweet.id }}/">{{ tweet.message }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tweets are available.</p>
+{% endif %}
