@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
 
 {% block head %}
@@ -9,9 +10,11 @@
     <script src="{% static 'js/emberduck.js' %}" type="text/javascript"></script>
 {% endblock %}
 
-{% verbatim %}
-    <script type="text/x-handlebars">
-        <h1>The Emberduck</h1>
-        {{outlet}}
-    </script>
-{% endverbatim %}
+{% block content %}
+    {% verbatim %}
+        <script type="text/x-handlebars">
+            <h1>The Emberduck</h1>
+            {{outlet}}
+        </script>
+    {% endverbatim %}
+{% endblock %}

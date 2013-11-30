@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-<h2>REGISTER</h2>
-
 {% block content %}
+
+    <a href="/users/sign-in" class="pull-right">sign in</a>
 
     {% if form.errors %}
         <p class="error">Wrong!</p>
@@ -14,7 +14,7 @@
         <label for="password">Password:</label>
         <input type="password" name="password" value="" id="password" />
 
-        <input type="submit" value="sign-up" />
+        <input type="submit" value="sign up" class="btn btn-sm btn-primary"/>
     </form>
 
 {% endblock %}

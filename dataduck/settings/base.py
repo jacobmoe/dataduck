@@ -68,23 +68,31 @@ TEMPLATE_DIRS = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+print(os.path.join(PROJECT_ROOT, 'static'))
+
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_DIRS = (
+    ('assets', os.path.join(PROJECT_ROOT, 'static')),
+    ('assets', os.path.join(PROJECT_ROOT, 'emberduck/static')),
+)
 
-PIPELINE_CSS = {
-    'application': {
-        'source_filenames': (
-          'css/emberduck.css',
-        ),
-        'output_filename': 'css/application.css',
-    },
-}
+# STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-PIPELINE_JS = {
-   'application': {
-        'source_filenames': (
-            'js/templates/**/*.js'
-        ),
-        'output_filename': 'js/application.js'
-   }
-}
+# PIPELINE_CSS = {
+#     'application': {
+#         'source_filenames': (
+#           'css/emberduck.css',
+#         ),
+#         'output_filename': 'css/application.css',
+#     },
+# }
+
+# PIPELINE_JS = {
+#    'application': {
+#         'source_filenames': (
+#             'js/templates/**/*.js'
+#         ),
+#         'output_filename': 'js/application.js'
+#    }
+# }

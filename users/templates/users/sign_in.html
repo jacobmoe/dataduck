@@ -2,6 +2,8 @@
 
 {% block content %}
 
+    <a href="/users/sign-up" class="pull-right">sign up</a>
+
     {% if form.errors %}
         <p class="error">Wrong!</p>
     {% endif %}
@@ -12,8 +14,9 @@
         <label for="password">Password:</label>
         <input type="password" name="password" value="" id="password" />
 
-        <input type="submit" value="login" />
+        <input type="submit" value="sign in" class="btn btn-sm btn-primary" />
     </form>
+
 
 {% endblock %}
 

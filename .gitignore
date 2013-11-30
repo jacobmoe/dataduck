@@ -1,3 +1,4 @@
 .DS_Store
 *.pyc
 dataduck/settings/local.py
+assets/
