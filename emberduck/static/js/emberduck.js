@@ -7,7 +7,7 @@ Emberduck = Ember.Application.create({
 
 Emberduck.Router.map(function() {
     this.resource('tweets', function() {
-        this.resource('tweet', {path: ':tweet_id'});
+        this.resource('show', {path: ':tweet_id'});
     });
     this.resource('results');
     this.resource('blog');
@@ -26,7 +26,7 @@ Emberduck.TweetsRoute = Ember.Route.extend({
 
 Emberduck.TweetRoute = Ember.Route.extend({
     model: function(params) {
-        return $.getJSON('/tweets/api/tweet/?format=json').findBy('id', params.tweet_id);
+        return tweets.findBy('id', params.tweet_id);
     }
 })
 Emberduck.TweetController = Ember.ObjectController.extend({

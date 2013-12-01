@@ -3,13 +3,12 @@
 {% block content %}
 
     <form action="/tweets/start/" method="post">{% csrf_token %}
-        <label for="track">Track:</label>
+        
         <input type="text" name="track" value="" id="track" />
+        <br /><br />
         <input type="submit" value="Start" class="btn btn-primary"/>
+        <a href="/tweets/stop" class="btn btn-warning">Stop</a>
+
     </form>
-
-
-    <a href="/tweets/stop" class="btn btn-warning">Stop</a>
-
 
 {% endblock %}

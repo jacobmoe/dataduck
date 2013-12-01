@@ -1,0 +1,7 @@
+<h3>Tweets</h3>
+<ul>
+    {{#each}}
+        {{#link-to 'tweet' this}}tweet{{/link-to}}
+    {{/each}}
+</ul>
+{{outlet}}
