@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^tweets/', include('tweet_collector.urls')),
     (r'^users/', include('users.urls')),
-    url(r'^index/$', 'emberduck.views.index'),
+    url(r'^emberduck/$', 'emberduck.views.index'),
 
 
 

@@ -4,4 +4,11 @@ body {
 .basic-template {
   padding: 40px 15px;
   text-align: center;
-}}
+
+}
+
+li {
+    text-align: left;
+}
+
+

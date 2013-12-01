@@ -25,7 +25,7 @@ def authenticate_user(request):
    
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/index')
+        return HttpResponseRedirect('/tweets')
     else:
         return HttpResponseRedirect('/users/sign-up')
 
@@ -38,4 +38,4 @@ def create_user(request):
         email = email, 
         password = password
     )
-    return HttpResponseRedirect('/index')
+    return HttpResponseRedirect('/tweets')

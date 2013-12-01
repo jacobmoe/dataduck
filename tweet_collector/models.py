@@ -23,17 +23,16 @@ class Tweet(models.Model):
 
 class Collector(object):
     
-    def __init__(self, track, collection_period):
-        self.track = track
+    def __init__(self, collection_period):
         self.collection_period = collection_period
 
     def start(self):
 
-        iterator = twitter_stream.statuses.filter(track = self.track)
+        iterator = twitter_stream.statuses.filter(track = self.collection_period.search_terms)
 
         for raw_tweet in iterator:
             now = datetime.now().replace(tzinfo=utc)
-            if (now < collection_period.stop_period):
+            if (now < self.collection_period.stop_date):
                 if (raw_tweet['coordinates'] is not None):
                     latitude = raw_tweet['coordinates']['coordinates'][0]
                     longitude = raw_tweet['coordinates']['coordinates'][1]

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <form action="/tweets/start/" method="post">{% csrf_token %}
+        <label for="track">Track:</label>
+        <input type="text" name="track" value="" id="track" />
+        <input type="submit" value="Start" class="btn btn-primary"/>
+    </form>
+
+
+    <a href="/tweets/stop" class="btn btn-warning">Stop</a>
+
+
+{% endblock %}
